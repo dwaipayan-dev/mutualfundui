@@ -18,9 +18,12 @@ function FundsPageComponent() {
 
 
     const getInvestedValue = (strategy, fundName) => {
-
-        const userPortfolioObj = userPortfolio.strategyMap[strategy.name];
         let investedValue = 0;
+        if(!userPortfolio?.strategyMap) {
+            return investedValue;
+        }
+        const userPortfolioObj = userPortfolio.strategyMap[strategy.name];
+        
         console.log("userPortfolioObj", userPortfolioObj);
         if (!userPortfolioObj) return investedValue.toFixed(2);
         if (fundName in userPortfolioObj) {
@@ -31,8 +34,12 @@ function FundsPageComponent() {
 
     const getMarketValue = (strategy, fundName) => {
 
-        const userPortfolioObj = userPortfolio.strategyMap[strategy.name];
         let marketValue = 0;
+        if(!userPortfolio?.strategyMap) {
+            return marketValue;
+        }
+        const userPortfolioObj = userPortfolio.strategyMap[strategy.name];
+        
         console.log("userPortfolioObj", userPortfolioObj);
         if (!userPortfolioObj) return marketValue.toFixed(2);
         if (fundName in userPortfolioObj) {
@@ -48,19 +55,26 @@ function FundsPageComponent() {
             return (
                 <>
                     {funds.map((fund, index) => {
+                        const investedValue = getInvestedValue(strategy, fund.name);
+                        const marketValue = getMarketValue(strategy, fund.name);
+                        const userPortfolioObj = userPortfolio.strategyMap[strategy.name];
+                        console.log("---->", userPortfolioObj);
                         return (
                             <>
                                 <h3 key={`fund_${index}`}>{fund.name}</h3>
                                 <div className="fund-card">
                                     <div className="value-container fund-value">
                                         <span>Invested Value</span>
-                                        <span className="value">{getInvestedValue(strategy, fund.name)}</span>
+                                        <span className="value">{investedValue}</span>
                                     </div>
                                     <div className="value-container fund-value">
                                         <span>Market Value</span>
-                                        <span className="value">{getMarketValue(strategy, fund.name)}</span>
+                                        <span className="value">{marketValue}</span>
                                     </div>
                                 </div>
+                                {(investedValue < 1 || marketValue < 1) && userPortfolioObj && <div className="error">
+                                        Failed order. Any amount deducted will be credited in few days.
+                                    </div>}
 
                             </>
                         )

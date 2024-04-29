@@ -2,15 +2,27 @@ import { useContext, useEffect, useState } from "react";
 import { StrategyContext } from "../context/StrategyProvider";
 import { useNavigate } from "react-router-dom";
 import "../css/PaymentPage.css"
+import { AuthContext } from "../context/AuthProvider";
+import axios from "axios";
 
 function PaymentPageComponent() {
     const {allStrategies, userPortfolio, loadAllStrategies, loadUserPortfolio, getStrategyFromId} = useContext(StrategyContext);
     const {user, setUser} = useContext(AuthContext);
     const [strategy, setStrategy] = useState(null);
     const [amount, setAmount] = useState(0);
-    const [accNo, setAccNo] = useState("")
+    const [accNo, setAccNo] = useState("");
+    const [isDisabled, setIsDisabled] = useState(true);
     const [ifscCode, setIfscCode] = useState("")
     const navigate = useNavigate();
+
+    const validateInput = () => {
+        if(amount > 0 && accNo && ifscCode) {
+            setIsDisabled(false);
+        }
+        else {
+            setIsDisabled(true);
+        }
+    }
 
     useEffect(()=> {
         if(allStrategies.length > 0){
@@ -20,6 +32,10 @@ function PaymentPageComponent() {
             navigate('/');
         }
     }, [])
+
+    useEffect(()=> {
+        validateInput()
+    }, [amount, accNo, ifscCode])
 
     const renderStrategySelect = () => {
         if(allStrategies.length > 0) {
@@ -61,7 +77,29 @@ function PaymentPageComponent() {
         }
     }
 
-    const handlePayment = () => {
+    const handlePayment = async() => {
+
+        let data = JSON.stringify({
+            "productId": `${strategy}`,
+            "amount": `${amount}`,
+            "accountNumber": `${accNo}`,
+            "ifscCode": `${ifscCode}`,
+            "redirectUrl": `${process.env.REACT_APP_BASE_URL}/payment-status`
+          });
+          
+          let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: `${process.env.REACT_APP_API_URL}/api/payment-gateway/link`,
+            headers: { 
+              'phoneNumber': `${user}`, 
+              'Content-Type': 'application/json', 
+            },
+            data : data
+          };
+
+          const paymentLinkResponse = (await axios(config)).data;
+          window.location.href = paymentLinkResponse.paymentLink;
 
     }
     return ( 
@@ -96,7 +134,8 @@ function PaymentPageComponent() {
         </div>
 
         <div className="form-group">
-            <button className="go-to-holdings" onClick = {() => handlePayment()}>
+            <button className={`go-to-holdings ${isDisabled? "disabled-btn": ""}`} onClick = {() => 
+                {handlePayment()}} disabled = {isDisabled}>
                 INVEST
             </button>
         </div>
