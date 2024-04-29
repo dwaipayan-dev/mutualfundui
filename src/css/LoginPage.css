@@ -1,0 +1,29 @@
+.login-page-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-phonenumber-container {
+    display: flex;
+}
+
+.login-phone-number {
+    font-size: 18px;
+    padding:10px;
+    background-color: plum;
+    border: 0px solid white;
+    border-radius: 8px;
+    margin-right: 20px
+}
+
+.login-button {
+    width: 100px;
+    font-size: 14px;
+    border: 0px solid white;
+    border-radius: 8px;
+    background-color: lawngreen;
+    cursor: pointer;
+}

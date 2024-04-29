@@ -1,24 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
+import LoginPageComponent from './pages/LoginPage';
+import AuthProvider from './context/AuthProvider';
+import StrategyProvider from './context/StrategyProvider';
+import LayoutComponent from './pages/Layout';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+      <StrategyProvider>
+        <LayoutComponent />
+      </StrategyProvider>
+    </AuthProvider>
+    </BrowserRouter>
+    
   );
 }
 

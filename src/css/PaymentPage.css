@@ -1,0 +1,46 @@
+.payment-page{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+}
+
+.form-input {
+    font-size: 18px;
+    padding:10px;
+    background-color: plum;
+    border: 0px solid white;
+    border-radius: 8px;
+    margin-right: 20px
+}
+
+.strategy-select {
+    color: gray;
+    margin-top: 5px
+}
+
+.form-control {
+    display: flex;
+    align-items: center;
+
+}
+
+.fund-value-payment {
+    margin-left: 20px;
+    padding: 5px;
+    background-color: #AFF4C6;
+    border-radius: 8px;
+    width: 120px;
+}
+
+.note {
+    margin-top: 100px;
+    font-size: 12px;
+}
+

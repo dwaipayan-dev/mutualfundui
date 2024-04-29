@@ -1,0 +1,24 @@
+.funds-page {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+}
+.fund-list{
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.fund-card{
+    display: flex;
+    flex: 1;
+    align-items: end;
+    justify-content: flex-start;
+
+}
+
+.fund-value {
+    margin-right: 20px;
+}

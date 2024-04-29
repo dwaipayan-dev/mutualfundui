@@ -1,0 +1,54 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+}
+
+.strategy-container {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.strategy-card-body{
+    display: flex;
+    flex: 1;
+    align-items: end;
+  justify-content: space-between;
+
+}
+
+.value-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.value {
+    padding: 5px;
+    background-color: #AFF4C6;
+    border-radius: 8px;
+    width: 120px;
+    margin-top: 10px
+}
+
+.go-to-holdings {
+    padding:12px;
+    font-size: 14px;
+    border: 0px solid;
+    border-radius: 8px;
+    background-color: blueviolet;
+    color: white;
+    cursor: pointer;
+}
+
+.transact-btn-container {
+    margin-top: 40px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.transact-btn {
+    font-weight: 600;
+}
